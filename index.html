@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ms" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rakyat Digital Quest</title>
+
+    <!-- Konfigurasi PWA & Web App -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="DigitalQuest">
+
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Butang Penukar Tema (Dark / Light Mode) -->
+    <div class="theme-switch-wrapper">
+        <button id="theme-toggle" aria-label="Tukar Tema">
+            <span id="theme-icon">☀️</span> <span id="theme-text">Cerah</span>
+        </button>
+    </div>
+
+    <!-- PENGHIMPUN UTAMA (SUSUN ATUR 3 LAJUR) -->
+    <div class="main-layout-container">
+
+        <!-- LAJUR KIRI: MASKOT ROBOT PINTAR (CYBERBOT) -->
+        <aside class="side-panel side-left">
+            <div class="mascot-card">
+                <!-- Dialog Bubble Maskot -->
+                <div class="speech-bubble" id="mascot-dialog">
+                    "Hai! Saya <b>CyberBot</b>. Mari pertahankan sistem kita daripada scammer!" 🛡️
+                </div>
+
+                <!-- Karakter Robot SVG Interaktif -->
+                <div class="mascot-avatar" id="mascot-avatar">
+                    <svg viewBox="0 0 140 160" width="130" height="150" class="bot-svg">
+                        <!-- Bayang Bawah -->
+                        <ellipse cx="70" cy="150" rx="35" ry="8" class="bot-shadow" />
+                        <!-- Antena -->
+                        <line x1="70" y1="35" x2="70" y2="15" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="70" cy="12" r="7" class="bot-antenna-light" id="bot-antenna"/>
+                        <!-- Telinga Kiri & Kanan -->
+                        <rect x="22" y="55" width="8" height="20" rx="4" class="bot-ear"/>
+                        <rect x="110" y="55" width="8" height="20" rx="4" class="bot-ear"/>
+                        <!-- Kepala -->
+                        <rect x="28" y="32" width="84" height="66" rx="20" class="bot-head"/>
+                        <!-- Skrin Muka -->
+                        <rect x="36" y="42" width="68" height="46" rx="14" class="bot-face-screen"/>
+                        
+                        <!-- Mata LED -->
+                        <circle cx="56" cy="62" r="7" class="bot-eye bot-eye-left" id="bot-eye-l"/>
+                        <circle cx="84" cy="62" r="7" class="bot-eye bot-eye-right" id="bot-eye-r"/>
+                        
+                        <!-- Titisan Air Mata (Muncul Bila Salah) -->
+                        <path d="M 56 70 Q 53 77 56 82 Q 59 77 56 70" fill="#38bdf8" class="bot-tear tear-left" id="tear-l"/>
+                        <path d="M 84 70 Q 81 77 84 82 Q 87 77 84 70" fill="#38bdf8" class="bot-tear tear-right" id="tear-r"/>
+
+                        <!-- Mulut LED -->
+                        <path d="M 58 75 Q 70 82 82 75" stroke="#10b981" stroke-width="3" fill="none" stroke-linecap="round" id="bot-mouth"/>
+                        
+                        <!-- Badan -->
+                        <rect x="42" y="104" width="56" height="38" rx="12" class="bot-body"/>
+                        <!-- Lampu Indikator Dada -->
+                        <circle cx="58" cy="120" r="4" class="bot-core-light"/>
+                        <circle cx="72" cy="120" r="4" class="bot-core-light-2"/>
+                        <circle cx="86" cy="120" r="4" class="bot-core-light-3"/>
+                        <!-- Tangan Kiri & Kanan -->
+                        <rect x="24" y="108" width="12" height="22" rx="6" class="bot-arm arm-left" id="bot-arm-l"/>
+                        <rect x="104" y="108" width="12" height="22" rx="6" class="bot-arm arm-right" id="bot-arm-r"/>
+                    </svg>
+                </div>
+
+                <div class="mascot-title">
+                    <h4>CyberBot 🤖</h4>
+                    <span>Pembantu Siber Peribadi</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- LAJUR TENGAH: KAD KUIZ UTAMA -->
+        <div class="app-wrapper">
+            <header>
+                <div class="game-badge">🎮 Edutainment Siber</div>
+                <h1>Rakyat Digital <span>Quest</span></h1>
+                <p>Uji ketangkasan & pertahanan siber anda</p>
+            </header>
+
+            <main class="kotak-kuiz">
+                <!-- 1. Bar Kemajuan Dinamik -->
+                <div class="progress-section">
+                    <div class="progress-info-row">
+                        <span id="progress-text">Soalan 1 / 15</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                    </div>
+                </div>
+
+                <!-- 2. Bar Status: Nyawa, Skor & Streak -->
+                <div class="status-bar">
+                    <div class="status-item nyawa-box">
+                        <span class="status-label">Nyawa:</span>
+                        <span id="nyawa-display" class="nyawa-icons">❤️❤️❤️</span>
+                    </div>
+
+                    <div class="status-item score-box">
+                        <span class="status-label">Skor:</span>
+                        <span id="markah" class="score-val">0</span>
+                        <span class="xp-tag">XP</span>
+                    </div>
+
+                    <div id="streak-box" class="status-item streak-box tersembunyi">
+                        <span id="streak-text">🔥 2x</span>
+                    </div>
+                </div>
+
+                <!-- 3. Kategori Soalan -->
+                <div id="kategori-tag" class="kategori-tag tersembunyi">
+                    <span id="kategori-text">🏦 Perbankan</span>
+                </div>
+
+                <!-- 4. Paparan Soalan -->
+                <h2 id="soalan">Adakah anda bersedia untuk memulakan cabaran?</h2>
+
+                <!-- 5. Kad Lencana / Keputusan Akhir -->
+                <div id="ruang-lencana" class="tersembunyi">
+                    <div id="ikon-lencana">🏅</div>
+                    <h3 id="nama-lencana">Nama Lencana</h3>
+                    <p id="huraian-lencana">Huraian pencapaian anda</p>
+                </div>
+
+                <p id="maklum-balas"></p>
+
+                <button id="butang-mula" class="btn-primary">Mula Cabaran 🚀</button>
+
+                <!-- 6. Pilihan Jawapan -->
+                <div id="pilihan-jawapan" class="tersembunyi">
+                    <button id="butang-betul" class="btn-choice btn-betul">
+                        <span>✅</span> Betul
+                    </button>
+                    <button id="butang-salah" class="btn-choice btn-salah">
+                        <span>❌</span> Salah
+                    </button>
+                </div>
+            </main>
+        </div>
+
+        <!-- LAJUR KANAN: STATUS PERISAI SIBER & TIPS -->
+        <aside class="side-panel side-right">
+            <div class="stat-card">
+                <div class="card-header-icon">🛡️</div>
+                <h4>Perisai Pertahanan</h4>
+                <div class="shield-meter">
+                    <div class="shield-meter-bar" id="shield-meter-bar"></div>
+                </div>
+                <p class="stat-subtitle" id="shield-status-text">Perisai 100% Aktif</p>
+            </div>
+
+            <div class="stat-card tip-card">
+                <div class="card-header-icon">💡</div>
+                <h4>Tip Siber Pantas</h4>
+                <p id="quick-tip-text">Kakitangan bank rasmi tidak akan meminta kod OTP atau TAC perbankan anda!</p>
+            </div>
+        </aside>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
